@@ -1,18 +1,20 @@
 import { compare, hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
-import { Permissions } from 'src/role/constants';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { CreatedAt, UpdatedAt } from '../../db/decorators';
+import { Post } from '../../post/entities/post.entity';
+import { Permissions } from '../../role/constants';
 import Role from '../../role/entities/role.entity';
 import { PASSWORD_HASH_ROUNDS } from '../constants';
 
@@ -43,6 +45,9 @@ export default class User {
   @OneToOne(() => Role, { eager: true })
   @JoinColumn()
   role: Role;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 
   hasPermission(name: Permissions) {
     return this.role.hasPermission(name);

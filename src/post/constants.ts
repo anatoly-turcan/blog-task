@@ -1,0 +1,1 @@
+export const MAX_POST_TEXT_LENGTH = 1_000_000;
