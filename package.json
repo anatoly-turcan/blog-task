@@ -18,23 +18,34 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm:data-source": "npx typeorm-ts-node-commonjs -d src/db/data-source.ts",
+    "typeorm": "npx typeorm-ts-node-commonjs",
+    "migration": "npm run typeorm:data-source migration:run",
+    "migration:generate": "npm run typeorm:data-source migration:generate \"./migrations/${npm_config_n:-generated}\"",
+    "migration:create": "npm run typeorm migration:create \"./migrations/${npm_config_n}\"",
+    "migration:revert": "npm run typeorm:data-source migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.0.2",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.12"
+    "typeorm": "^0.3.12",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
