@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Roles } from 'src/role/constants';
+import { RoleService } from 'src/role/role.service';
 import { Repository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,6 +11,7 @@ import User from './entities/user.entity';
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly repository: Repository<User>,
+    private readonly roleService: RoleService,
   ) {}
 
   async findOneByEmail(email: User['email']) {
@@ -19,7 +22,12 @@ export class UserService {
     return this.repository.findOneBy({ id });
   }
 
-  async create(data: CreateUserDto) {
-    return this.repository.save(this.repository.create(data));
+  async create(data: CreateUserDto, role: Roles = Roles.BLOGGER) {
+    return this.repository.save(
+      this.repository.create({
+        ...data,
+        role: await this.roleService.find(role),
+      }),
+    );
   }
 }

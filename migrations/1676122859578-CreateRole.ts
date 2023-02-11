@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUser1676115009476 implements MigrationInterface {
+export class CreateRole1676122859578 implements MigrationInterface {
   private table = new Table({
-    name: 'user',
+    name: 'role',
     columns: [
       {
         name: 'id',
@@ -11,29 +11,23 @@ export class CreateUser1676115009476 implements MigrationInterface {
         isPrimary: true,
       },
       {
-        name: 'email',
+        name: 'name',
         type: 'varchar',
         isUnique: true,
-      },
-      {
-        name: 'password',
-        type: 'varchar',
-      },
-      {
-        name: 'created_at',
-        type: 'timestamp',
-        default: 'now()',
-      },
-      {
-        name: 'updated_at',
-        type: 'timestamp',
-        default: 'now()',
       },
     ],
   });
 
+  private roles = ['ADMIN', 'BLOGGER'];
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(this.table);
+    await queryRunner.manager
+      .createQueryBuilder()
+      .insert()
+      .into(this.table.name, ['name'])
+      .values(this.roles.map((name) => ({ name })))
+      .execute();
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
