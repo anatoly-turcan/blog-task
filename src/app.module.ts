@@ -6,9 +6,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { configuration } from './config/configuration';
 import { DbModule } from './db/db.module';
+import { PaginationModule } from './pagination/pagination.module';
+import { PostModule } from './post/post.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
-import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PostModule } from './post/post.module';
     AuthModule,
     RoleModule,
     PostModule,
+    PaginationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

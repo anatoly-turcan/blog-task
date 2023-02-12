@@ -4,7 +4,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Config } from '../config/configuration';
-import { TypeOrmExceptionFilter } from './filters/typeorm-exception.filter';
+import { TypeOrmEntityNotFoundExceptionFilter } from './filters/typeorm-entity-not-found-exception.filter';
+import { TypeOrmQueryExceptionFilter } from './filters/typeorm-query-exception.filter';
 
 @Module({
   imports: [
@@ -14,11 +15,14 @@ import { TypeOrmExceptionFilter } from './filters/typeorm-exception.filter';
       useFactory: (config: ConfigService<Config>) => ({
         ...config.get<Config['db']>('db'),
         autoLoadEntities: true,
-        logging: ['error'],
+        logging: 'all',
       }),
     }),
   ],
-  providers: [{ provide: APP_FILTER, useClass: TypeOrmExceptionFilter }],
+  providers: [
+    { provide: APP_FILTER, useClass: TypeOrmQueryExceptionFilter },
+    { provide: APP_FILTER, useClass: TypeOrmEntityNotFoundExceptionFilter },
+  ],
   exports: [TypeOrmModule],
 })
 export class DbModule {}

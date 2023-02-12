@@ -12,8 +12,8 @@ import { QueryFailedError } from 'typeorm';
 import { PostgresExceptionCodes } from '../constants';
 
 @Catch(QueryFailedError)
-export class TypeOrmExceptionFilter implements ExceptionFilter {
-  protected readonly logger = new Logger(TypeOrmExceptionFilter.name);
+export class TypeOrmQueryExceptionFilter implements ExceptionFilter {
+  protected readonly logger = new Logger(TypeOrmQueryExceptionFilter.name);
 
   catch(exception: QueryFailedError, host: ArgumentsHost) {
     const res = host.switchToHttp().getResponse<Response>();
