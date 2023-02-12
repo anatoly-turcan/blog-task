@@ -22,7 +22,7 @@ export class UserService {
     return this.repository.findOneBy({ id });
   }
 
-  async create(data: CreateUserDto, role: Roles = Roles.BLOGGER) {
+  async create(data: CreateUserDto, role: string = Roles.BLOGGER) {
     return this.repository.save(
       this.repository.create({
         ...data,

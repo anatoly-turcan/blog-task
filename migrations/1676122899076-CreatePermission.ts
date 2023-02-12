@@ -27,13 +27,9 @@ export class CreatePermission1676122899076 implements MigrationInterface {
     'CREATE_POST',
     'READ_USER_POST',
     'READ_PUBLIC_POST',
-    'READ_ANY_POST',
     'UPDATE_USER_POST',
-    'UPDATE_ANY_POST',
-    'UPDATE_USER_POST_HIDDEN',
-    'UPDATE_ANY_POST_HIDDEN',
     'DELETE_USER_POST',
-    'DELETE_ANY_POST',
+    'DELETE_ANY_PUBLIC_POST',
   ];
 
   public async up(queryRunner: QueryRunner): Promise<void> {

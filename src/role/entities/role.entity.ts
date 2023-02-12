@@ -6,7 +6,8 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Permissions, Roles } from '../constants';
+
+import { Permissions } from '../constants';
 import Permission from './permission.entity';
 
 @Entity()
@@ -16,7 +17,7 @@ export default class Role {
   id: number;
 
   @Column()
-  name: Roles;
+  name: string;
 
   @ManyToMany(() => Permission, { eager: true })
   @JoinTable({ name: 'role_permission' })

@@ -4,34 +4,12 @@ export enum Permissions {
   CREATE_POST = 'CREATE_POST',
   READ_USER_POST = 'READ_USER_POST',
   READ_PUBLIC_POST = 'READ_PUBLIC_POST',
-  READ_ANY_POST = 'READ_ANY_POST',
   UPDATE_USER_POST = 'UPDATE_USER_POST',
-  UPDATE_ANY_POST = 'UPDATE_ANY_POST',
-  UPDATE_USER_POST_HIDDEN = 'UPDATE_USER_POST_HIDDEN',
-  UPDATE_ANY_POST_HIDDEN = 'UPDATE_ANY_POST_HIDDEN',
   DELETE_USER_POST = 'DELETE_USER_POST',
-  DELETE_ANY_POST = 'DELETE_ANY_POST',
+  DELETE_ANY_PUBLIC_POST = 'DELETE_ANY_PUBLIC_POST',
 }
 
 export enum Roles {
   ADMIN = 'ADMIN',
   BLOGGER = 'BLOGGER',
 }
-
-export const RolePermissions = {
-  [Roles.ADMIN]: [
-    Permissions.CREATE_POST,
-    Permissions.READ_ANY_POST,
-    Permissions.UPDATE_ANY_POST,
-    Permissions.UPDATE_ANY_POST_HIDDEN,
-    Permissions.DELETE_ANY_POST,
-  ],
-  [Roles.BLOGGER]: [
-    Permissions.CREATE_POST,
-    Permissions.READ_PUBLIC_POST,
-    Permissions.READ_USER_POST,
-    Permissions.UPDATE_USER_POST,
-    Permissions.UPDATE_USER_POST_HIDDEN,
-    Permissions.DELETE_USER_POST,
-  ],
-} as const;

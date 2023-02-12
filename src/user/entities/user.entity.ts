@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 
 import { CreatedAt, UpdatedAt } from '../../db/decorators';
-import { Post } from '../../post/entities/post.entity';
+import Post from '../../post/entities/post.entity';
 import { Permissions } from '../../role/constants';
 import Role from '../../role/entities/role.entity';
 import { PASSWORD_HASH_ROUNDS } from '../constants';

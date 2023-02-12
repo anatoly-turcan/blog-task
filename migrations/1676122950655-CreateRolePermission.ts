@@ -32,21 +32,16 @@ export class CreateRolePermission1676122950655 implements MigrationInterface {
   });
 
   private rolePermissions = {
-    ADMIN: [
-      'CREATE_POST',
-      'READ_ANY_POST',
-      'UPDATE_ANY_POST',
-      'UPDATE_ANY_POST_HIDDEN',
-      'DELETE_ANY_POST',
-    ],
     BLOGGER: [
       'CREATE_POST',
-      'READ_PUBLIC_POST',
       'READ_USER_POST',
+      'READ_PUBLIC_POST',
       'UPDATE_USER_POST',
-      'UPDATE_USER_POST_HIDDEN',
       'DELETE_USER_POST',
     ],
+    get ADMIN() {
+      return [...this.BLOGGER, 'DELETE_ANY_PUBLIC_POST'];
+    },
   };
 
   public async up(queryRunner: QueryRunner): Promise<void> {

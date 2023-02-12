@@ -10,7 +10,7 @@ import { CreatedAt, UpdatedAt } from '../../db/decorators';
 import User from '../../user/entities/user.entity';
 
 @Entity()
-export class Post {
+export default class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
