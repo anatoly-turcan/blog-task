@@ -11,11 +11,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { Permissions } from 'src/role/constants';
-import { Permission } from 'src/role/decorators/permission.decorator';
-import { User } from 'src/user/decorators/user.decorator';
-import UserEntity from 'src/user/entities/user.entity';
 
+import { Permissions } from '../role/constants';
+import { Permission } from '../role/decorators/permission.decorator';
+import { User } from '../user/decorators/user.decorator';
+import UserEntity from '../user/entities/user.entity';
 import { CreatePostDto } from './dto/create-post.dto';
 import { FindPaginatedPostDto } from './dto/find-paginated-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -28,7 +28,7 @@ export class PostController {
 
   @Post()
   @Permission(Permissions.CREATE_POST)
-  create(@Body() data: CreatePostDto, @User() user: UserEntity) {
+  async create(@Body() data: CreatePostDto, @User() user: UserEntity) {
     return this.postService.create(user, data);
   }
 

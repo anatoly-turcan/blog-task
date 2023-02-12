@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import User from 'src/user/entities/user.entity';
 
+import User from '../../user/entities/user.entity';
 import { PERMISSION_METADATA_KEY, Permissions } from '../constants';
 
 @Injectable()

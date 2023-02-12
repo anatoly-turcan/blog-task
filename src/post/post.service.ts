@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isDefined } from 'class-validator';
-import { PaginationService } from 'src/pagination/pagination.service';
-import { Permissions } from 'src/role/constants';
-import User from 'src/user/entities/user.entity';
 import { Brackets, Not, Repository } from 'typeorm';
 
+import { PaginationService } from '../pagination/pagination.service';
+import { Permissions } from '../role/constants';
+import User from '../user/entities/user.entity';
 import { CreatePostDto } from './dto/create-post.dto';
 import { FindPaginatedPostDto } from './dto/find-paginated-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
