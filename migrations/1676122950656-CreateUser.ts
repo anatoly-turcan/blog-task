@@ -43,8 +43,27 @@ export class CreateUser1676122950656 implements MigrationInterface {
     ],
   });
 
+  private get admin() {
+    return {
+      email: process.env.ADMIN_EMAIL || 'admin@app.com',
+      password:
+        process.env.ADMIN_PASSWORD_HASH ||
+        '$2b$10$qTtRoUbvyuYRnDodIrAcTOswRjpX14n6qwOVPNo.dQKMqrvgU/l9i',
+    };
+  }
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(this.table);
+
+    const adminRole = await queryRunner.manager.findOneBy<{
+      id: number;
+      name: string;
+    }>('role', { name: 'ADMIN' });
+
+    await queryRunner.manager.insert(this.table.name, {
+      ...this.admin,
+      roleId: adminRole.id,
+    });
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
