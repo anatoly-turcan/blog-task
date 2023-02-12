@@ -8,14 +8,20 @@ services:
       POSTGRES_USER: ${DB_USER:-root}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/data\
+
+  migration:
+    image: backend-api
+    build: .
+    command: ["npm", "run", "migration"]
+    depends_on:
+      - db
 
   api:
     restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - "$PORT:$PORT"
     depends_on:
       - db
+      - migration
