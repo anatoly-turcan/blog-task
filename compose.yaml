@@ -2,11 +2,20 @@ services:
   db:
     image: postgres:15.1-alpine3.17
     restart: unless-stopped
-    ports:
-      - "${DB_PORT:-5432}:5432"
+    command: -p ${DB_PORT:-5432}
     environment:
       POSTGRES_DB: ${DB_NAME:-blog-task}
       POSTGRES_USER: ${DB_USER:-root}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
     volumes:
       - ./data/db:/var/lib/postgresql/data
+
+  api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "$PORT:$PORT"
+    depends_on:
+      - db
